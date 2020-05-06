@@ -16,7 +16,7 @@ class _MyExchangeState extends State<MyExchange> {
             padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
             alignment: Alignment.centerLeft,
             child: Text(
-              "Currency Converter",
+              "Exchange Rates",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 28,

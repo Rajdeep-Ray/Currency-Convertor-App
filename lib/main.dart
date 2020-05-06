@@ -15,7 +15,6 @@ class MyApp extends StatelessWidget {
           child: child,
         );
       },
-      title: 'Rajdeep Ray',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -44,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Color(0xFF2B2B52),
       bottomNavigationBar: CurvedNavigationBar(
         index: _currentIndex,
-        height: 60.0,
+        height: 55.0,
         items: <Widget>[
           Icon(Icons.compare_arrows, size: 30),
           Icon(Icons.attach_money, size: 30),
