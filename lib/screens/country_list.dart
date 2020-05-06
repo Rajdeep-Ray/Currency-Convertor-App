@@ -2,6 +2,7 @@ class Country{
   String symbol,code,currency;
   Country({this.code,this.symbol,this.currency});
 }
+
 final List<Country> country = [
     Country(code: 'INR', symbol: '\₹', currency: "Indian rupee"),
     Country(code: 'EUR', symbol: '\€', currency: "Euro"),
