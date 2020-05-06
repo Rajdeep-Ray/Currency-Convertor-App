@@ -12,11 +12,22 @@ class _MyConvertState extends State<MyConvert> {
       color: Color(0xFF2B2B52),
       height: 100,
       width: 200,
-      child: Center(
-        child: Text(
-          "Hello",
-          style: TextStyle(color: Colors.white, fontSize: 20),
-        ),
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Currency Converter",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 28,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          
+        ],
       ),
     );
   }
