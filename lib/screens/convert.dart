@@ -19,12 +19,16 @@ class _MyConvertState extends State<MyConvert> {
               "Currency Converter",
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 30,
+                fontSize: 29,
                 fontWeight: FontWeight.w500,
               ),
             ),
           ),
-          //remaining
+          Column(
+            children: [
+              //remaining
+            ],
+          )
         ],
       ),
     );
