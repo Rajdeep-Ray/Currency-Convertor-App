@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'country_class.dart';
+import 'country_list.dart';
 
 class MyExchange extends StatefulWidget {
   @override
@@ -26,11 +26,6 @@ class _MyExchangeState extends State<MyExchange> {
     makeRequest('2020-05-05', '2020-05-06');
     super.initState();
   }
-
-  List<Country> country = [
-    Country(code: 'INR', symbol: '\₹'),
-    Country(code: 'EUR',symbol: '\€')
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -78,41 +73,53 @@ class _MyExchangeState extends State<MyExchange> {
                               e.code,
                               e.symbol,
                               data['rates']['2020-05-05'][e.code],
-                              data['rates']['2020-05-06'][e.code]))
+                              data['rates']['2020-05-06'][e.code],
+                              e.currency))
                           .toList(),
                     ),
                   ),
                 )
               : Container(),
+          SizedBox(
+            height: 18,
+          )
         ],
       ),
     );
   }
 
-  Widget _currencySelect() {
-    return Container();
-  }
+  // Widget _currencySelect() {
+  //   return Container();
+  // }
 }
 
 class _MyExchangeCard extends StatelessWidget {
-  final String base, currency, symbol;
+  final String base, currency, symbol, code;
   final double start, end;
-  _MyExchangeCard(this.base, this.currency, this.symbol, this.start, this.end);
+  _MyExchangeCard(
+      this.base, this.code, this.symbol, this.start, this.end, this.currency);
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.all(10),
       child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: Colors.black12,
-          foregroundColor: Colors.black,
-          child: Text(
-            "$symbol",
-            style: TextStyle(fontSize: 30),
-          ),
+        leading: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              //radius: 22,
+              backgroundColor: Colors.black12,
+              foregroundColor: Colors.black,
+              child: Text(
+                "$symbol",
+                style: TextStyle(fontSize: 25),
+              ),
+            ),
+          ],
         ),
-        title: Text(currency.toString()),
-        subtitle: Text("1 $base = ${roundDouble(end, 4)} $currency"),
+        title: Text(code.toString()),
+        subtitle: Text("$currency\n1 $base = ${roundDouble(end, 4)} $code"),
+        isThreeLine: true,
         trailing: Text("${roundDouble(end - start, 4)}"),
       ),
     );
