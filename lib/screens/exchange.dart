@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'country_list.dart';
 
 class MyExchange extends StatefulWidget {
+  final String startDate, endDate;
+  MyExchange({@required this.startDate, @required this.endDate});
   @override
   _MyExchangeState createState() => _MyExchangeState();
 }
@@ -23,7 +25,7 @@ class _MyExchangeState extends State<MyExchange> {
 
   @override
   void initState() {
-    makeRequest('2020-05-05', '2020-05-06');
+    makeRequest(widget.startDate, widget.endDate);
     super.initState();
   }
 
@@ -62,6 +64,11 @@ class _MyExchangeState extends State<MyExchange> {
               trailing: Icon(Icons.expand_less),
             ),
           ),
+          Text(
+            "${widget.startDate} to ${widget.endDate}",
+            style: TextStyle(color: Colors.white),
+          ),
+          SizedBox(height: 10,),
           //remaining
           data != null
               ? Expanded(
@@ -69,12 +76,12 @@ class _MyExchangeState extends State<MyExchange> {
                     child: Column(
                       children: country
                           .map((e) => _MyExchangeCard(
-                              'USD',
-                              e.code,
-                              e.symbol,
-                              data['rates']['2020-05-05'][e.code],
-                              data['rates']['2020-05-06'][e.code],
-                              e.currency))
+                              base: 'USD',
+                              code: e.code,
+                              symbol: e.symbol,
+                              start: data['rates']['2020-05-05'][e.code],
+                              end: data['rates']['2020-05-06'][e.code],
+                              currency: e.currency))
                           .toList(),
                     ),
                   ),
@@ -99,7 +106,12 @@ class _MyExchangeCard extends StatelessWidget {
   final String base, currency, symbol, code;
   final double start, end;
   _MyExchangeCard(
-      this.base, this.code, this.symbol, this.start, this.end, this.currency);
+      {@required this.base,
+      @required this.code,
+      @required this.symbol,
+      @required this.start,
+      @required this.end,
+      @required this.currency});
   @override
   Widget build(BuildContext context) {
     print(country.length);
