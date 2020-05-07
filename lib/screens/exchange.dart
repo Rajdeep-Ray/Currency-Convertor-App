@@ -12,10 +12,11 @@ class MyExchange extends StatefulWidget {
 }
 
 class _MyExchangeState extends State<MyExchange> {
+  String baseCode="USD",baseCurrncy="United States Dollar",baseSymbol="\$";
   var data;
-  Future<void> makeRequest(start, end) async {
+  Future<void> makeRequest(start, end, code) async {
     String url =
-        'https://api.exchangeratesapi.io/history?start_at=$start&end_at=$end&base=USD';
+        'https://api.exchangeratesapi.io/history?start_at=$start&end_at=$end&base=$code';
     var response = await http
         .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
     setState(() {
@@ -25,7 +26,7 @@ class _MyExchangeState extends State<MyExchange> {
 
   @override
   void initState() {
-    makeRequest(widget.startDate, widget.endDate);
+    makeRequest(widget.startDate, widget.endDate,baseCode);
     super.initState();
   }
 
@@ -55,12 +56,12 @@ class _MyExchangeState extends State<MyExchange> {
                 backgroundColor: Colors.black12,
                 foregroundColor: Colors.black,
                 child: Text(
-                  "\$",
-                  style: TextStyle(fontSize: 30),
+                  baseSymbol,
+                  style: TextStyle(fontSize: 22),
                 ),
               ),
-              title: Text("USD"),
-              subtitle: Text("United States Dollars"),
+              title: Text(baseCode),
+              subtitle: Text(baseCurrncy),
               trailing: Icon(Icons.expand_less),
               onTap: () => Navigator.push(
                 context,
@@ -83,13 +84,20 @@ class _MyExchangeState extends State<MyExchange> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: country
-                          .map((e) => _MyExchangeCard(
-                              base: 'USD',
+                          .map((e){
+                            if (baseCode.compareTo('EUR')==0 && e.code.compareTo('EUR')==0) {
+                              return Container();
+                            }
+                            else{
+                              return _MyExchangeCard(
+                              base: baseCode,
                               code: e.code,
                               symbol: e.symbol,
-                              start: data['rates']['2020-05-05'][e.code],
-                              end: data['rates']['2020-05-06'][e.code],
-                              currency: e.currency))
+                              start: data['rates'][widget.startDate][e.code],
+                              end: data['rates'][widget.endDate][e.code],
+                              currency: e.currency);
+                            }
+                          })
                           .toList(),
                     ),
                   ),
@@ -115,9 +123,40 @@ class _MyExchangeState extends State<MyExchange> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [
-            //list of counties
-          ],
+          children: country
+              .map(
+                (e) => Container(
+                  child: Column(
+                    children: [
+                      ListTile(
+                        leading: CircleAvatar(
+                          radius: 22,
+                          backgroundColor: Colors.black12,
+                          foregroundColor: Colors.black,
+                          child: Text(
+                            "${e.symbol}",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                        title: Text(e.code),
+                        subtitle: Text(e.currency),
+                        onTap: (){
+                          setState(() {
+                            baseCode=e.code;
+                            baseCurrncy=e.currency;
+                            baseSymbol=e.symbol;
+                          });
+                          data=null;
+                          makeRequest(widget.startDate, widget.endDate, baseCode);
+                          Navigator.pop(context);
+                        },
+                      ),
+                      Divider()
+                    ],
+                  ),
+                ),
+              )
+              .toList(),
         ),
       ),
     );

@@ -32,7 +32,7 @@ final List<Country> country = [
   Country(code: 'NZD', symbol: '\$', currency: "New Zealand dollar"),
   Country(code: 'ZAR', symbol: 'R', currency: "South African rand"),
   Country(code: 'USD', symbol: '\$', currency: "United States Dollar"),
-  Country(code: 'MXN', symbol: 'Mex\$', currency: "Mexican peso"),
+  Country(code: 'MXN', symbol: '\$', currency: "Mexican peso"),
   Country(code: 'SGD', symbol: 'S\$', currency: "Singapore dollar"),
   Country(code: 'ILS', symbol: '\₪', currency: "Israeli Shekel"),
   Country(code: 'KRW', symbol: '\₩', currency: "South Korean won"),
