@@ -62,14 +62,21 @@ class _MyExchangeState extends State<MyExchange> {
               title: Text("USD"),
               subtitle: Text("United States Dollars"),
               trailing: Icon(Icons.expand_less),
-              onTap: (){},
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => _currencySelect(),
+                ),
+              ),
             ),
           ),
           Text(
             "${widget.startDate} to ${widget.endDate}",
             style: TextStyle(color: Colors.white),
           ),
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
           //remaining
           data != null
               ? Expanded(
@@ -96,11 +103,25 @@ class _MyExchangeState extends State<MyExchange> {
     );
   }
 
-  // Widget _currencySelect() {
-  //   return Scaffold(
-  //     body: Container(),
-  //   );
-  // }
+  Widget _currencySelect() {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFF2B2B52),
+        leading: IconButton(
+          icon: Icon(Icons.close),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text("Select Currency"),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            //list of counties
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class _MyExchangeCard extends StatelessWidget {
@@ -117,7 +138,7 @@ class _MyExchangeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     print(country.length);
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 5,horizontal: 10),
+      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: ListTile(
         leading: Column(
           mainAxisAlignment: MainAxisAlignment.center,
