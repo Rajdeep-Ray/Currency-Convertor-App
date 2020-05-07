@@ -62,6 +62,7 @@ class _MyExchangeState extends State<MyExchange> {
               title: Text("USD"),
               subtitle: Text("United States Dollars"),
               trailing: Icon(Icons.expand_less),
+              onTap: (){},
             ),
           ),
           Text(
@@ -116,7 +117,7 @@ class _MyExchangeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     print(country.length);
     return Card(
-      margin: EdgeInsets.all(10),
+      margin: EdgeInsets.symmetric(vertical: 5,horizontal: 10),
       child: ListTile(
         leading: Column(
           mainAxisAlignment: MainAxisAlignment.center,
