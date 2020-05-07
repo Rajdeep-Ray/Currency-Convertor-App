@@ -12,7 +12,9 @@ class MyExchange extends StatefulWidget {
 }
 
 class _MyExchangeState extends State<MyExchange> {
-  String baseCode="USD",baseCurrncy="United States Dollar",baseSymbol="\$";
+  String baseCode = "USD",
+      baseCurrncy = "United States Dollar",
+      baseSymbol = "\$";
   var data;
   Future<void> makeRequest(start, end, code) async {
     String url =
@@ -26,7 +28,7 @@ class _MyExchangeState extends State<MyExchange> {
 
   @override
   void initState() {
-    makeRequest(widget.startDate, widget.endDate,baseCode);
+    makeRequest(widget.startDate, widget.endDate, baseCode);
     super.initState();
   }
 
@@ -83,22 +85,25 @@ class _MyExchangeState extends State<MyExchange> {
               ? Expanded(
                   child: SingleChildScrollView(
                     child: Column(
-                      children: country
-                          .map((e){
-                            if (baseCode.compareTo('EUR')==0 && e.code.compareTo('EUR')==0) {
-                              return Container();
-                            }
-                            else{
-                              return _MyExchangeCard(
-                              base: baseCode,
-                              code: e.code,
-                              symbol: e.symbol,
-                              start: data['rates'][widget.startDate][e.code],
-                              end: data['rates'][widget.endDate][e.code],
-                              currency: e.currency);
-                            }
-                          })
-                          .toList(),
+                      children: country.map((e) {
+                        if (baseCode.compareTo('EUR') == 0 &&
+                            e.code.compareTo('EUR') == 0) {
+                          return Container();
+                        } 
+                        else if (baseCode.compareTo(e.code)==0) {
+                          return Container();
+                        }
+                        else {
+                          return _MyExchangeCard(
+                            base: baseCode,
+                            code: e.code,
+                            symbol: e.symbol,
+                            start: data['rates'][widget.startDate][e.code],
+                            end: data['rates'][widget.endDate][e.code],
+                            currency: e.currency,
+                          );
+                        }
+                      }).toList(),
                     ),
                   ),
                 )
@@ -138,16 +143,23 @@ class _MyExchangeState extends State<MyExchange> {
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
-                        title: Text(e.code),
-                        subtitle: Text(e.currency),
-                        onTap: (){
+                        title: Text(
+                          e.code,
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                        subtitle: Text(
+                          e.currency,
+                          style: TextStyle(color: Colors.black, fontSize: 15),
+                        ),
+                        onTap: () {
                           setState(() {
-                            baseCode=e.code;
-                            baseCurrncy=e.currency;
-                            baseSymbol=e.symbol;
+                            baseCode = e.code;
+                            baseCurrncy = e.currency;
+                            baseSymbol = e.symbol;
                           });
-                          data=null;
-                          makeRequest(widget.startDate, widget.endDate, baseCode);
+                          data = null;
+                          makeRequest(
+                              widget.startDate, widget.endDate, baseCode);
                           Navigator.pop(context);
                         },
                       ),
@@ -183,7 +195,7 @@ class _MyExchangeCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircleAvatar(
-              //radius: 22,
+              radius: 25,
               backgroundColor: Colors.black12,
               foregroundColor: Colors.black,
               child: Text(
@@ -196,7 +208,65 @@ class _MyExchangeCard extends StatelessWidget {
         title: Text(code.toString()),
         subtitle: Text("$currency\n1 $base = ${roundDouble(end, 4)} $code"),
         isThreeLine: true,
-        trailing: Text("${roundDouble(end - start, 4)}"),
+        trailing: roundDouble(end - start, 4) == 0
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.trending_flat,
+                    color: Colors.orange,
+                    size: 28,
+                  ),
+                  Text(
+                    "\t${roundDouble(end - start, 4)}",
+                    style: TextStyle(
+                      color: Colors.orange,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  )
+                ],
+              )
+            : (roundDouble(end - start, 4) > 0
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.trending_up,
+                        color: Colors.green,
+                        size: 28,
+                      ),
+                      Text(
+                        "\t${roundDouble(end - start, 4)}",
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                        ),
+                      )
+                    ],
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.trending_down,
+                        color: Colors.red,
+                        size: 28,
+                      ),
+                      Text(
+                        "\t${roundDouble(end - start, 4)}",
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                        ),
+                      )
+                    ],
+                  )),
       ),
     );
   }

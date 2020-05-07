@@ -1,3 +1,3 @@
 # Currency Convertor App
 
-A app for converting currencies and viewing everday exchange rates.
+An app for converting currencies and viewing everday exchange rates.
