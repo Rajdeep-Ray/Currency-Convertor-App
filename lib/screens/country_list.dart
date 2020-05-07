@@ -1,23 +1,40 @@
-class Country{
-  String symbol,code,currency;
-  Country({this.code,this.symbol,this.currency});
+class Country {
+  String symbol, code, currency;
+  Country({this.code, this.symbol, this.currency});
 }
 
 final List<Country> country = [
-    Country(code: 'INR', symbol: '\₹', currency: "Indian rupee"),
-    Country(code: 'EUR', symbol: '\€', currency: "Euro"),
-    Country(code: 'GBP', symbol: '\£', currency: "Pound sterling"),
-    Country(code: 'ISK', symbol: 'Íkr', currency: "Icelandic króna"),
-    Country(code: 'RON', symbol: 'lei', currency: "Romanian leu"),
-    Country(code: 'SEK', symbol: 'kr', currency: "Swedish krona"),
-    Country(code: 'HUF', symbol: 'Ft', currency: "Hungarian forint"),
-    Country(code: 'IDR', symbol: 'Rp', currency: "Indonesian rupiah"),
-    Country(code: 'BRL', symbol: 'R\$', currency: "Brazilian real"),
-    Country(code: 'DKK', symbol: 'Kr.',currency: "Danish krone"),
-    Country(code: 'CAD', symbol: '\$',currency: "Canadian dollar"),
-    Country(code: 'RUB', symbol: '\₽',currency: "Ruble"),
-    Country(code: 'CZK', symbol: 'Kč',currency: "Czech koruna"),
-    Country(code: 'AUD', symbol: '\$',currency: "Australian dollar"),
-    Country(code: 'PHP', symbol: '\₱',currency: "Philippine peso"),
-    Country(code: 'HKD', symbol: '\$',currency: "Hong Kong dollar"),
-  ];
+  Country(code: 'INR', symbol: '\₹', currency: "Indian rupee"),
+  Country(code: 'EUR', symbol: '\€', currency: "Euro"),
+  Country(code: 'GBP', symbol: '\£', currency: "Pound sterling"),
+  Country(code: 'ISK', symbol: 'Íkr', currency: "Icelandic króna"),
+  Country(code: 'RON', symbol: 'lei', currency: "Romanian leu"),
+  Country(code: 'SEK', symbol: 'kr', currency: "Swedish krona"),
+  Country(code: 'HUF', symbol: 'Ft', currency: "Hungarian forint"),
+  Country(code: 'IDR', symbol: 'Rp', currency: "Indonesian rupiah"),
+  Country(code: 'BRL', symbol: 'R\$', currency: "Brazilian real"),
+  Country(code: 'DKK', symbol: 'Kr.', currency: "Danish krone"),
+  Country(code: 'CAD', symbol: '\$', currency: "Canadian dollar"),
+  Country(code: 'RUB', symbol: '\₽', currency: "Ruble"),
+  Country(code: 'CZK', symbol: 'Kč', currency: "Czech koruna"),
+  Country(code: 'AUD', symbol: '\$', currency: "Australian dollar"),
+  Country(code: 'PHP', symbol: '\₱', currency: "Philippine peso"),
+  Country(code: 'HKD', symbol: '\$', currency: "Hong Kong dollar"),
+  Country(code: 'HRK', symbol: 'kn', currency: "Croatian kuna"),
+  Country(code: 'JPY', symbol: '\¥', currency: "Japanese yen"),
+  Country(code: 'THB', symbol: '\฿', currency: "Thai baht"),
+  Country(code: 'CHF', symbol: 'Fr.', currency: "Swiss franc"),
+  Country(code: 'MYR', symbol: 'RM', currency: "Malaysian ringgit"),
+  Country(code: 'BGN', symbol: 'Лв.', currency: "Bulgarian lev"),
+  Country(code: 'TRY', symbol: '\₺', currency: "Turkish lira"),
+  Country(code: 'CNY', symbol: '\¥', currency: "Renminbi"),
+  Country(code: 'NOK', symbol: 'kr', currency: "Norwegian krone"),
+  Country(code: 'NZD', symbol: '\$', currency: "New Zealand dollar"),
+  Country(code: 'ZAR', symbol: 'R', currency: "South African rand"),
+  Country(code: 'USD', symbol: '\$', currency: "United States Dollar"),
+  Country(code: 'MXN', symbol: 'Mex\$', currency: "Mexican peso"),
+  Country(code: 'SGD', symbol: 'S\$', currency: "Singapore dollar"),
+  Country(code: 'ILS', symbol: '\₪', currency: "Israeli Shekel"),
+  Country(code: 'KRW', symbol: '\₩', currency: "South Korean won"),
+  Country(code: 'PLN', symbol: 'zł', currency: "Polish złoty"),
+];

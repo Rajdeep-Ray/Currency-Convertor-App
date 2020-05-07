@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: PageView(
           controller: _pageController,
           onPageChanged: (page) {
-            print(page);
+            //print(page);
             setState(() {
               _currentIndex = page;
             });
