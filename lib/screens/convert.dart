@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'country_list.dart';
+import './country_list.dart';
 
 class MyConvert extends StatefulWidget {
   @override

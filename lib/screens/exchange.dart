@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'country_list.dart';
+import './country_list.dart';
 
 class MyExchange extends StatefulWidget {
   final String startDate, endDate;

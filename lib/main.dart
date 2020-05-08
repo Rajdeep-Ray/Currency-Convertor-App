@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
         color: Colors.white,
         buttonBackgroundColor: Colors.white,
-        backgroundColor: Color(0xFF2B2B52),
+        backgroundColor: Colors.transparent,
         animationCurve: Curves.easeInOut,
         animationDuration: Duration(milliseconds: 250),
         onTap: (int index) {
