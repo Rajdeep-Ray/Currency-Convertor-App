@@ -64,7 +64,7 @@ class _MyExchangeState extends State<MyExchange> {
               ),
               title: Text(baseCode),
               subtitle: Text(baseCurrncy),
-              trailing: Icon(Icons.expand_less),
+              trailing: Icon(Icons.arrow_drop_up),
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(

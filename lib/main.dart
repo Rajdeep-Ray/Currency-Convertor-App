@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
             });
           },
           children: [
-            MyConvert(),
+            MyConvert(fromCode: "INR",tocode: "USD",),
             MyExchange(startDate: '2020-05-06', endDate:'2020-05-07',),
           ],
         ),
