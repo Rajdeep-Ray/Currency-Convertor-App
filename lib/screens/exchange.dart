@@ -89,11 +89,9 @@ class _MyExchangeState extends State<MyExchange> {
                         if (baseCode.compareTo('EUR') == 0 &&
                             e.code.compareTo('EUR') == 0) {
                           return Container();
-                        } 
-                        else if (baseCode.compareTo(e.code)==0) {
+                        } else if (baseCode.compareTo(e.code) == 0) {
                           return Container();
-                        }
-                        else {
+                        } else {
                           return _MyExchangeCard(
                             base: baseCode,
                             code: e.code,
@@ -107,7 +105,12 @@ class _MyExchangeState extends State<MyExchange> {
                     ),
                   ),
                 )
-              : Container(),
+              : Expanded(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
           SizedBox(
             height: 18,
           )
