@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -116,13 +117,17 @@ class _MyConvertState extends State<MyConvert> {
                               controller: myAmountController,
                               keyboardType: TextInputType.number,
                               onChanged: (text) {
+                                double exchAmt;
                                 if (myAmountController.text.isEmpty) {
                                   setState(() {
-                                    amount=0;
+                                    amount = 0;
                                   });
                                 }
                                 setState(() {
-                                  amount =double.parse(myAmountController.text);
+                                  exchAmt =
+                                      double.parse(myAmountController.text) *
+                                          data['rates'][toCode];
+                                  amount = roundDouble(exchAmt, 3);
                                 });
                                 print("$text");
                               },
@@ -185,7 +190,7 @@ class _MyConvertState extends State<MyConvert> {
                             SizedBox(
                               width: 15,
                             ),
-                            Text("${amount != null ? amount : 00.0}"),
+                            Text("$amount"),
                             SizedBox(
                               width: 30,
                             ),
@@ -243,12 +248,14 @@ class _MyConvertState extends State<MyConvert> {
                         ),
                         onTap: () {
                           setState(() {
+                            myAmountController.clear();
+                            amount = 0;
                             baseCode = e.code;
                             baseCurrency = e.currency;
                             baseSymbol = e.symbol;
                           });
                           data = null;
-                          //makeRequest(widget.startDate, widget.endDate, baseCode);
+                          makeRequest(e.code, toCode);
                           Navigator.pop(context);
                         },
                       ),
@@ -300,12 +307,14 @@ class _MyConvertState extends State<MyConvert> {
                         ),
                         onTap: () {
                           setState(() {
+                            myAmountController.clear();
+                            amount = 0;
                             toCode = e.code;
                             toCurrency = e.currency;
                             toSymbol = e.symbol;
                           });
                           data = null;
-                          //makeRequest(widget.startDate, widget.endDate, baseCode);
+                          makeRequest(baseCode, e.code);
                           Navigator.pop(context);
                         },
                       ),
@@ -318,5 +327,10 @@ class _MyConvertState extends State<MyConvert> {
         ),
       ),
     );
+  }
+
+  double roundDouble(double value, int places) {
+    double mod = pow(10.0, places);
+    return ((value * mod).round().toDouble() / mod);
   }
 }
