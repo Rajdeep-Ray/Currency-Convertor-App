@@ -9,11 +9,11 @@ class MyConvert extends StatefulWidget {
   final String tocode, fromCode, fromSymbol, toSymbol, fromCurrency, toCurrency;
   MyConvert(
       {@required this.fromCode,
-      @required this.toCurrency,
-      @required this.toSymbol,
-      @required this.tocode,
       @required this.fromCurrency,
-      @required this.fromSymbol});
+      @required this.fromSymbol,
+      @required this.tocode,
+      @required this.toCurrency,
+      @required this.toSymbol});
   @override
   _MyConvertState createState() => _MyConvertState();
 }
@@ -39,7 +39,11 @@ class _MyConvertState extends State<MyConvert> {
   void initState() {
     setState(() {
       baseCode = widget.fromCode;
+      baseCurrency = widget.fromCurrency;
+      baseSymbol = widget.fromSymbol;
       toCode = widget.tocode;
+      toCurrency = widget.toCurrency;
+      toSymbol = widget.toSymbol;
     });
     makeRequest(baseCode, toCode);
     super.initState();
@@ -82,7 +86,7 @@ class _MyConvertState extends State<MyConvert> {
                             foregroundColor: Colors.black,
                             child: Text(
                               baseSymbol,
-                              style: TextStyle(fontSize: 22),
+                              style: TextStyle(fontSize: 25),
                             ),
                           ),
                           title: Text(baseCode),
@@ -112,8 +116,10 @@ class _MyConvertState extends State<MyConvert> {
                           ),
                           Flexible(
                             child: TextField(
+                              style: TextStyle(fontSize: 30),
                               decoration: InputDecoration(
                                 hintText: 'Amount',
+                                hintStyle: TextStyle(fontSize: 25),
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.transparent,
@@ -166,7 +172,7 @@ class _MyConvertState extends State<MyConvert> {
                             foregroundColor: Colors.black,
                             child: Text(
                               toSymbol,
-                              style: TextStyle(fontSize: 22),
+                              style: TextStyle(fontSize: 25),
                             ),
                           ),
                           title: Text(toCode),
@@ -196,7 +202,10 @@ class _MyConvertState extends State<MyConvert> {
                             SizedBox(
                               width: 15,
                             ),
-                            Text("$amount"),
+                            Text(
+                              "$amount",
+                              style: TextStyle(fontSize: 30),
+                            ),
                             SizedBox(
                               width: 30,
                             ),

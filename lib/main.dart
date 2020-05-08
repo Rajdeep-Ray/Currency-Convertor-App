@@ -86,11 +86,11 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             MyConvert(
               fromCode: 'INR',
-              toCurrency: 'Indian rupee',
-              toSymbol: '\₹',
+              fromCurrency: 'Indian rupee',
+              fromSymbol: '\₹',
               tocode: 'USD',
-              fromCurrency: 'United States Dollar',
-              fromSymbol: '\$',
+              toCurrency: 'United States Dollar',
+              toSymbol: '\$',
             ),
             MyExchange(
               startDate: '2020-05-06',
