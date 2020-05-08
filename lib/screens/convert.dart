@@ -14,8 +14,9 @@ class MyConvert extends StatefulWidget {
 final myAmountController = TextEditingController();
 
 class _MyConvertState extends State<MyConvert> {
-  String baseCode, baseCurrency, baseSymbol;
-  String toCode, toCurrency, toSymbol;
+  String baseCode, baseCurrency = "", baseSymbol = "";
+  String toCode, toCurrency = "", toSymbol = "";
+  double amount = 0;
   var data;
   Future<void> makeRequest(fromCode, toCode) async {
     String url =
@@ -39,7 +40,7 @@ class _MyConvertState extends State<MyConvert> {
 
   @override
   Widget build(BuildContext context) {
-    print(data);
+    //print(data);
     return Container(
       color: Color(0xFF2B2B52),
       child: Column(
@@ -115,7 +116,15 @@ class _MyConvertState extends State<MyConvert> {
                               controller: myAmountController,
                               keyboardType: TextInputType.number,
                               onChanged: (text) {
-                                print("First text field: $text");
+                                if (myAmountController.text.isEmpty) {
+                                  setState(() {
+                                    amount=0;
+                                  });
+                                }
+                                setState(() {
+                                  amount =double.parse(myAmountController.text);
+                                });
+                                print("$text");
                               },
                             ),
                           ),
@@ -170,13 +179,13 @@ class _MyConvertState extends State<MyConvert> {
                               width: 30,
                             ),
                             Text(
-                              baseSymbol,
+                              toSymbol,
                               style: TextStyle(fontSize: 30),
                             ),
                             SizedBox(
                               width: 15,
                             ),
-                            Text("00.0"),
+                            Text("${amount != null ? amount : 00.0}"),
                             SizedBox(
                               width: 30,
                             ),
@@ -253,6 +262,7 @@ class _MyConvertState extends State<MyConvert> {
       ),
     );
   }
+
   Widget _currencyToSelect() {
     return Scaffold(
       appBar: AppBar(
