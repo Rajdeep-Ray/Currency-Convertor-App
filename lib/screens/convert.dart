@@ -14,8 +14,8 @@ class MyConvert extends StatefulWidget {
 final myAmountController = TextEditingController();
 
 class _MyConvertState extends State<MyConvert> {
-  String baseCode, baseCurrncy = "", baseSymbol = "";
-  String toCode;
+  String baseCode, baseCurrency, baseSymbol;
+  String toCode, toCurrency, toSymbol;
   var data;
   Future<void> makeRequest(fromCode, toCode) async {
     String url =
@@ -78,12 +78,12 @@ class _MyConvertState extends State<MyConvert> {
                             ),
                           ),
                           title: Text(baseCode),
-                          subtitle: Text(baseCurrncy),
+                          subtitle: Text(baseCurrency),
                           trailing: Icon(Icons.arrow_drop_up),
                           onTap: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => _currencySelect(),
+                              builder: (context) => _currencyFromSelect(),
                             ),
                           ),
                         ),
@@ -104,6 +104,14 @@ class _MyConvertState extends State<MyConvert> {
                           ),
                           Flexible(
                             child: TextField(
+                              decoration: InputDecoration(
+                                hintText: 'Amount',
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                  ),
+                                ),
+                              ),
                               controller: myAmountController,
                               keyboardType: TextInputType.number,
                               onChanged: (text) {
@@ -115,6 +123,68 @@ class _MyConvertState extends State<MyConvert> {
                             width: 30,
                           ),
                         ],
+                      ),
+                      SizedBox(
+                        height: 8,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Card(
+                        margin: EdgeInsets.all(10),
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: Colors.black12,
+                            foregroundColor: Colors.black,
+                            child: Text(
+                              toSymbol,
+                              style: TextStyle(fontSize: 22),
+                            ),
+                          ),
+                          title: Text(toCode),
+                          subtitle: Text(toCurrency),
+                          trailing: Icon(Icons.arrow_drop_up),
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => _currencyToSelect(),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Text(
+                              baseSymbol,
+                              style: TextStyle(fontSize: 30),
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Text("00.0"),
+                            SizedBox(
+                              width: 30,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 8,
                       )
                     ],
                   ),
@@ -127,7 +197,7 @@ class _MyConvertState extends State<MyConvert> {
     );
   }
 
-  Widget _currencySelect() {
+  Widget _currencyFromSelect() {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF2B2B52),
@@ -165,8 +235,64 @@ class _MyConvertState extends State<MyConvert> {
                         onTap: () {
                           setState(() {
                             baseCode = e.code;
-                            baseCurrncy = e.currency;
+                            baseCurrency = e.currency;
                             baseSymbol = e.symbol;
+                          });
+                          data = null;
+                          //makeRequest(widget.startDate, widget.endDate, baseCode);
+                          Navigator.pop(context);
+                        },
+                      ),
+                      Divider()
+                    ],
+                  ),
+                ),
+              )
+              .toList(),
+        ),
+      ),
+    );
+  }
+  Widget _currencyToSelect() {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFF2B2B52),
+        leading: IconButton(
+          icon: Icon(Icons.close),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text("Select Currency"),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: country
+              .map(
+                (e) => Container(
+                  child: Column(
+                    children: [
+                      ListTile(
+                        leading: CircleAvatar(
+                          radius: 22,
+                          backgroundColor: Colors.black12,
+                          foregroundColor: Colors.black,
+                          child: Text(
+                            "${e.symbol}",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                        title: Text(
+                          e.code,
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                        subtitle: Text(
+                          e.currency,
+                          style: TextStyle(color: Colors.black, fontSize: 15),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            toCode = e.code;
+                            toCurrency = e.currency;
+                            toSymbol = e.symbol;
                           });
                           data = null;
                           //makeRequest(widget.startDate, widget.endDate, baseCode);
