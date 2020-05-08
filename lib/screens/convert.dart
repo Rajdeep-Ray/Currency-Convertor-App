@@ -6,8 +6,14 @@ import 'package:http/http.dart' as http;
 import './country_list.dart';
 
 class MyConvert extends StatefulWidget {
-  final String tocode, fromCode;
-  MyConvert({@required this.fromCode, @required this.tocode});
+  final String tocode, fromCode, fromSymbol, toSymbol, fromCurrency, toCurrency;
+  MyConvert(
+      {@required this.fromCode,
+      @required this.toCurrency,
+      @required this.toSymbol,
+      @required this.tocode,
+      @required this.fromCurrency,
+      @required this.fromSymbol});
   @override
   _MyConvertState createState() => _MyConvertState();
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 import './screens/convert.dart';
 import './screens/exchange.dart';
 
@@ -27,11 +28,27 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String startDate, endDate;
+
   int _currentIndex = 0;
 
   PageController _pageController = new PageController(
     initialPage: 0,
   );
+
+  // Future<void> _getData() async{
+  //   SharedPreferences pref= await SharedPreferences.getInstance();
+  //  setState(() {
+  //    startDate=pref.getString('startDate');
+  //    endDate=pref.getString('endDate');
+  //  });
+  // }
+
+  @override
+  void initState() {
+    //_getData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +84,18 @@ class _MyHomePageState extends State<MyHomePage> {
             });
           },
           children: [
-            MyConvert(fromCode: "INR",tocode: "USD",),
-            MyExchange(startDate: '2020-05-06', endDate:'2020-05-07',),
+            MyConvert(
+              fromCode: 'INR',
+              toCurrency: 'Indian rupee',
+              toSymbol: '\₹',
+              tocode: 'USD',
+              fromCurrency: 'United States Dollar',
+              fromSymbol: '\$',
+            ),
+            MyExchange(
+              startDate: '2020-05-06',
+              endDate: '2020-05-07',
+            ),
           ],
         ),
       ),
