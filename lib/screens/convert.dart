@@ -192,7 +192,23 @@ class _MyConvertState extends State<MyConvert> {
                             color: Colors.white,
                             size: 30,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            String tempcode,tempSymbol,tempCurrency;
+                            setState(() {
+                              amount=0;
+                              myAmountController.clear();
+                              tempcode=baseCode;
+                              tempSymbol=baseSymbol;
+                              tempCurrency=baseCurrency;
+                              baseCode=toCode;
+                              baseSymbol=toSymbol;
+                              baseCurrency=toCurrency;
+                              toCode=tempcode;
+                              toSymbol=tempSymbol;
+                              toCurrency=tempCurrency;
+                            });
+                            makeRequest(baseCode, toCode);
+                          },
                         )
                       ],
                     ),
