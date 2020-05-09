@@ -190,7 +190,7 @@ class _MyExchangeCard extends StatelessWidget {
       @required this.currency});
   @override
   Widget build(BuildContext context) {
-    print(country.length);
+    //print(country.length);
     return Card(
       margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: ListTile(

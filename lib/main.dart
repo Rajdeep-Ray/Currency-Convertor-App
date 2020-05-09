@@ -56,16 +56,16 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     if (currDate.compareTo(data['date'].toString()) != 0 &&
-        prevDate.compareTo('2020-05-02') != 0) {
-      print("if");
+        prevDate.compareTo('2020-05-04') != 0) {
+      //print("if");
       setState(() {
         prevDate = currDate;
         currDate = data['date'].toString();
       });
     } else {
-      print("else");
+      //print("else");
       setState(() {
-        prevDate = '2020-05-01';
+        //prevDate = '2020-05-01';
         currDate = data['date'].toString();
         // print(prevDate);
         // print(currDate);
@@ -82,7 +82,18 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     if (data == null) {
-      return Container();
+      return Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        color: Color(0xFF2B2B52),
+        child: Center(
+          child: SizedBox(
+            height: 100,
+            width: 100,
+            child: CircularProgressIndicator(),
+          ),
+        ),
+      );
     }
     //print(data['date']);
     _getData();
