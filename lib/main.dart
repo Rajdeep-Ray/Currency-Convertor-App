@@ -51,20 +51,24 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _getData() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
-      prevDate = pref.getString('prevDate') ?? '2020-05-01';
-      currDate = pref.getString('currDate')??'';
+      prevDate = pref.getString('prevDate') ?? '2020-05-04';
+      currDate = pref.getString('currDate') ?? '';
     });
 
-    if (currDate.compareTo(data['date'].toString()) != 0 && prevDate.compareTo('2020-05-01')!=0) {
+    if (currDate.compareTo(data['date'].toString()) != 0 &&
+        prevDate.compareTo('2020-05-02') != 0) {
       print("if");
       setState(() {
-        prevDate=currDate;
-        currDate=data['date'].toString();
+        prevDate = currDate;
+        currDate = data['date'].toString();
       });
     } else {
       print("else");
       setState(() {
-        currDate=data['date'].toString();
+        prevDate = '2020-05-01';
+        currDate = data['date'].toString();
+        // print(prevDate);
+        // print(currDate);
       });
     }
   }
@@ -123,8 +127,10 @@ class _MyHomePageState extends State<MyHomePage> {
               toSymbol: '\$',
             ),
             MyExchange(
-              startDate: prevDate,
-              endDate: currDate,
+              startDate: prevDate.toString().trim(),
+              endDate: currDate.toString().trim(),
+              // startDate: '2020-05-04',
+              // endDate: '2020-05-07',
             ),
           ],
         ),
