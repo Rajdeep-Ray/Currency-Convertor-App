@@ -69,157 +69,193 @@ class _MyConvertState extends State<MyConvert> {
               ),
             ),
           ),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Card(
-                        margin: EdgeInsets.all(10),
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: Colors.black12,
-                            foregroundColor: Colors.black,
-                            child: Text(
-                              baseSymbol,
-                              style: TextStyle(fontSize: 25),
-                            ),
-                          ),
-                          title: Text(baseCode),
-                          subtitle: Text(baseCurrency),
-                          trailing: Icon(Icons.arrow_drop_up),
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => _currencyFromSelect(),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Row(
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      margin: EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            width: 30,
+                          Card(
+                            color: Color(0xFFf5f5f5),
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 10),
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor: Colors.black12,
+                                foregroundColor: Colors.black,
+                                child: Text(
+                                  baseSymbol,
+                                  style: TextStyle(fontSize: 25),
+                                ),
+                              ),
+                              title: Text(baseCode),
+                              subtitle: Text(baseCurrency),
+                              trailing: Icon(Icons.arrow_drop_up),
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => _currencyFromSelect(),
+                                ),
+                              ),
+                            ),
                           ),
-                          Text(
-                            baseSymbol,
-                            style: TextStyle(fontSize: 30),
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Flexible(
-                            child: TextField(
-                              style: TextStyle(fontSize: 30),
-                              decoration: InputDecoration(
-                                hintText: 'Amount',
-                                hintStyle: TextStyle(fontSize: 25),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 30,
+                              ),
+                              Text(
+                                '$baseSymbol \t-',
+                                style: TextStyle(fontSize: 30),
+                              ),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Flexible(
+                                child: Container(
+                                  color: Color(0xFFf5f5f5),
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  child: TextField(
+                                    style: TextStyle(fontSize: 30),
+                                    decoration: InputDecoration(
+                                      hintText: 'Amount',
+                                      hintStyle: TextStyle(fontSize: 25),
+                                      // enabledBorder: UnderlineInputBorder(
+                                      //   borderSide: BorderSide(color: Colors.transparent)
+                                      // ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                        ),
+                                      ),
+                                    ),
+                                    controller: myAmountController,
+                                    keyboardType: TextInputType.number,
+                                    onChanged: (text) {
+                                      double exchAmt;
+                                      if (myAmountController.text.isEmpty) {
+                                        setState(() {
+                                          amount = 0;
+                                        });
+                                      }
+                                      setState(() {
+                                        exchAmt = double.parse(
+                                                myAmountController.text) *
+                                            data['rates'][toCode];
+                                        amount = roundDouble(exchAmt, 3);
+                                      });
+                                      print("$text");
+                                    },
                                   ),
                                 ),
                               ),
-                              controller: myAmountController,
-                              keyboardType: TextInputType.number,
-                              onChanged: (text) {
-                                double exchAmt;
-                                if (myAmountController.text.isEmpty) {
-                                  setState(() {
-                                    amount = 0;
-                                  });
-                                }
-                                setState(() {
-                                  exchAmt =
-                                      double.parse(myAmountController.text) *
-                                          data['rates'][toCode];
-                                  amount = roundDouble(exchAmt, 3);
-                                });
-                                print("$text");
-                              },
+                              SizedBox(
+                                width: 15,
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.arrow_downward,
+                          size: 30,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          "\tConverted to",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      margin: EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Card(
+                            color: Color(0xFFf5f5f5),
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 10),
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor: Colors.black12,
+                                foregroundColor: Colors.black,
+                                child: Text(
+                                  toSymbol,
+                                  style: TextStyle(fontSize: 25),
+                                ),
+                              ),
+                              title: Text(toCode),
+                              subtitle: Text(toCurrency),
+                              trailing: Icon(Icons.arrow_drop_up),
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => _currencyToSelect(),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: 30,
+                                ),
+                                Text(
+                                  "$toSymbol \t-",
+                                  style: TextStyle(fontSize: 30),
+                                ),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                Text(
+                                  "$amount",
+                                  style: TextStyle(fontSize: 30),
+                                ),
+                                SizedBox(
+                                  width: 30,
+                                ),
+                              ],
                             ),
                           ),
                           SizedBox(
-                            width: 30,
-                          ),
+                            height: 8,
+                          )
                         ],
                       ),
-                      SizedBox(
-                        height: 8,
-                      )
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Card(
-                        margin: EdgeInsets.all(10),
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: Colors.black12,
-                            foregroundColor: Colors.black,
-                            child: Text(
-                              toSymbol,
-                              style: TextStyle(fontSize: 25),
-                            ),
-                          ),
-                          title: Text(toCode),
-                          subtitle: Text(toCurrency),
-                          trailing: Icon(Icons.arrow_drop_up),
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => _currencyToSelect(),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: 30,
-                            ),
-                            Text(
-                              toSymbol,
-                              style: TextStyle(fontSize: 30),
-                            ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            Text(
-                              "$amount",
-                              style: TextStyle(fontSize: 30),
-                            ),
-                            SizedBox(
-                              width: 30,
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 8,
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ],
+            ),
           )
         ],
       ),
