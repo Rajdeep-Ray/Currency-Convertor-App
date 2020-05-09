@@ -185,6 +185,15 @@ class _MyConvertState extends State<MyConvert> {
                             fontSize: 25,
                           ),
                         ),
+                        Spacer(),
+                        IconButton(
+                          icon: Icon(
+                            Icons.compare_arrows,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                          onPressed: () {},
+                        )
                       ],
                     ),
                   ),
