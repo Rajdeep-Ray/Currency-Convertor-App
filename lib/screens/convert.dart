@@ -199,6 +199,7 @@ class _MyConvertState extends State<MyConvert> {
                             size: 30,
                           ),
                           onPressed: () {
+                            makeRequest(toCode, baseCode);
                             String tempcode, tempSymbol, tempCurrency;
                             setState(() {
                               amount = 0;
@@ -213,7 +214,6 @@ class _MyConvertState extends State<MyConvert> {
                               toSymbol = tempSymbol;
                               toCurrency = tempCurrency;
                             });
-                            makeRequest(baseCode, toCode);
                           },
                         )
                       ],
