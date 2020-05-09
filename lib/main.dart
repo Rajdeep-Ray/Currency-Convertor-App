@@ -51,11 +51,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _getData() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
-      prevDate = pref.getString('prevDate') ?? '2020-05-06';
+      prevDate = pref.getString('prevDate') ?? '2020-05-01';
       currDate = pref.getString('currDate')??'';
     });
 
-    if (currDate.compareTo(data['date'].toString()) != 0 && prevDate.compareTo('2020-05-06')!=0) {
+    if (currDate.compareTo(data['date'].toString()) != 0 && prevDate.compareTo('2020-05-01')!=0) {
       print("if");
       setState(() {
         prevDate=currDate;
