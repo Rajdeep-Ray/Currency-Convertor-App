@@ -31,7 +31,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String prevDate, currDate;
-  bool isDetail = false;
+  bool isDate = false;
+  String tempDate;
   int _currentIndex = 0;
 
   PageController _pageController = new PageController(
@@ -50,33 +51,73 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _getData() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    setState(() {
-      prevDate = pref.getString('prevDate') ?? '2020-05-04';
-      currDate = pref.getString('currDate') ?? '';
-    });
+    print(pref.getString('prevDate'));
+    // setState(() {
+    //   prevDate = pref.getString('prevDate');
+    //   currDate = pref.getString('currDate') ?? '';
+    //   //tempDate=currDate;
+    //   //print(currDate.split('-').length);
+    // });
 
-    if (currDate.compareTo(data['date'].toString()) != 0 &&
-        prevDate.compareTo('2020-05-04') != 0) {
-      //print("if");
+    if (pref.getString('currDate').split('-').length == 3) {
+      print("if");
       setState(() {
-        prevDate = currDate;
+        prevDate = pref.getString('prevDate');
         currDate = data['date'].toString();
+        print(pref.getString('prevDate'));
+        print(prevDate);
       });
     } else {
-      //print("else");
+      print("else");
       setState(() {
-        //prevDate = '2020-05-01';
         currDate = data['date'].toString();
+        prevDate = '2020-05-04';
         // print(prevDate);
         // print(currDate);
       });
     }
   }
 
+  // Future<void> _getPervDate() async {
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   if (pref.getString('prevDate') == null) {
+  //     setState(() {
+  //       prevDate = '2020-05-04';
+  //     });
+  //   } else if (pref.getString('currDate').split('-').length == 3) {
+  //     setState(() {
+  //       prevDate = pref.getString('currDate');
+  //     });
+  //     print("else if");
+  //   } else {
+  //     setState(() {
+  //       prevDate = pref.getString('prevDate');
+  //     });
+  //   }
+  // }
+
+  // Future<void> _getCurrDate() async {
+  //   SharedPreferences pref = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     currDate = pref.getString('currDate');
+  //   });
+  //   if (pref.getString('currDate').split('-').length == 3) {
+  //     setState(() {
+  //       currDate = data['date'].toString();
+  //     });
+  //   }
+  // }
+
   @override
   void initState() {
     _getRequest();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    isDate = false;
+    super.dispose();
   }
 
   @override
@@ -138,8 +179,8 @@ class _MyHomePageState extends State<MyHomePage> {
               toSymbol: '\$',
             ),
             MyExchange(
-              startDate: prevDate.toString().trim(),
-              endDate: currDate.toString().trim(),
+              startDate: prevDate,
+              endDate: currDate,
               // startDate: '2020-05-04',
               // endDate: '2020-05-07',
             ),

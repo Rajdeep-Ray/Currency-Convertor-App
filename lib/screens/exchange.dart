@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './country_list.dart';
 
 class MyExchange extends StatefulWidget {
@@ -26,9 +27,16 @@ class _MyExchangeState extends State<MyExchange> {
     });
   }
 
+  Future<void> _setData(prevDate,currDate)async{
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString("prevDate", prevDate);
+    await prefs.setString("currDate", currDate);
+  }
+
   @override
   void initState() {
     makeRequest(widget.startDate, widget.endDate, baseCode);
+    _setData(widget.startDate, widget.endDate);
     super.initState();
   }
 
