@@ -93,8 +93,8 @@ class _MyHomePageState extends State<MyHomePage> {
               toSymbol: '\$',
             ),
             MyExchange(
-              startDate: '2020-05-06',
-              endDate: '2020-05-07',
+              startDate: '2020-05-07',
+              endDate: '2020-05-08',
             ),
           ],
         ),
