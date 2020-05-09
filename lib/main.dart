@@ -51,13 +51,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _getData() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    print(pref.getString('prevDate'));
-    // setState(() {
-    //   prevDate = pref.getString('prevDate');
-    //   currDate = pref.getString('currDate') ?? '';
-    //   //tempDate=currDate;
-    //   //print(currDate.split('-').length);
-    // });
 
     if (pref.getString('currDate').split('-').length == 3) {
       print("if");
@@ -77,36 +70,6 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
   }
-
-  // Future<void> _getPervDate() async {
-  //   SharedPreferences pref = await SharedPreferences.getInstance();
-  //   if (pref.getString('prevDate') == null) {
-  //     setState(() {
-  //       prevDate = '2020-05-04';
-  //     });
-  //   } else if (pref.getString('currDate').split('-').length == 3) {
-  //     setState(() {
-  //       prevDate = pref.getString('currDate');
-  //     });
-  //     print("else if");
-  //   } else {
-  //     setState(() {
-  //       prevDate = pref.getString('prevDate');
-  //     });
-  //   }
-  // }
-
-  // Future<void> _getCurrDate() async {
-  //   SharedPreferences pref = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     currDate = pref.getString('currDate');
-  //   });
-  //   if (pref.getString('currDate').split('-').length == 3) {
-  //     setState(() {
-  //       currDate = data['date'].toString();
-  //     });
-  //   }
-  // }
 
   @override
   void initState() {
