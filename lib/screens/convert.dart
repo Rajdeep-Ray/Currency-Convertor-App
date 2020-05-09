@@ -50,6 +50,12 @@ class _MyConvertState extends State<MyConvert> {
   }
 
   @override
+  void dispose() {
+    myAmountController.clear();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     //print(data);
     return Container(
