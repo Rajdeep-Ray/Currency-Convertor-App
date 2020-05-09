@@ -128,9 +128,9 @@ class _MyConvertState extends State<MyConvert> {
                                     decoration: InputDecoration(
                                       hintText: 'Amount',
                                       hintStyle: TextStyle(fontSize: 25),
-                                      // enabledBorder: UnderlineInputBorder(
-                                      //   borderSide: BorderSide(color: Colors.transparent)
-                                      // ),
+                                      enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.transparent)),
                                       focusedBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                           color: Colors.transparent,
@@ -193,19 +193,19 @@ class _MyConvertState extends State<MyConvert> {
                             size: 30,
                           ),
                           onPressed: () {
-                            String tempcode,tempSymbol,tempCurrency;
+                            String tempcode, tempSymbol, tempCurrency;
                             setState(() {
-                              amount=0;
+                              amount = 0;
                               myAmountController.clear();
-                              tempcode=baseCode;
-                              tempSymbol=baseSymbol;
-                              tempCurrency=baseCurrency;
-                              baseCode=toCode;
-                              baseSymbol=toSymbol;
-                              baseCurrency=toCurrency;
-                              toCode=tempcode;
-                              toSymbol=tempSymbol;
-                              toCurrency=tempCurrency;
+                              tempcode = baseCode;
+                              tempSymbol = baseSymbol;
+                              tempCurrency = baseCurrency;
+                              baseCode = toCode;
+                              baseSymbol = toSymbol;
+                              baseCurrency = toCurrency;
+                              toCode = tempcode;
+                              toSymbol = tempSymbol;
+                              toCurrency = tempCurrency;
                             });
                             makeRequest(baseCode, toCode);
                           },
@@ -263,7 +263,9 @@ class _MyConvertState extends State<MyConvert> {
                                 ),
                                 Text(
                                   "$amount",
-                                  style: TextStyle(fontSize: 30),
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                  ),
                                 ),
                                 SizedBox(
                                   width: 30,
