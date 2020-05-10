@@ -31,8 +31,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String prevDate, currDate;
-  bool isDate = false;
-  String tempDate;
+  bool hasDate=false;
   int _currentIndex = 0;
 
   PageController _pageController = new PageController(
@@ -51,17 +50,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _getData() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-
-    if (pref.getString('currDate').split('-').length == 3) {
-      print("if");
+    if (pref.getString('currDate') != null &&
+        pref.getString('currDate').split('-').length == 3 &&
+        pref.getString('currDate').compareTo(data['date']) != 0 &&
+        pref.getString('prevDate') != null) {
+      //print("if");
       setState(() {
-        prevDate = pref.getString('prevDate');
+        prevDate = pref.getString('currDate');
         currDate = data['date'].toString();
-        print(pref.getString('prevDate'));
-        print(prevDate);
+        // print(pref.getString('prevDate'));
+        // print(prevDate);
       });
     } else {
-      print("else");
+      //print("else");
       setState(() {
         currDate = data['date'].toString();
         prevDate = '2020-05-04';
@@ -75,12 +76,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     _getRequest();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    isDate = false;
-    super.dispose();
   }
 
   @override
@@ -100,7 +95,10 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     }
     //print(data['date']);
-    _getData();
+    if (hasDate!=true) {
+      _getData();
+      hasDate=true;
+    }
     return Scaffold(
       backgroundColor: Color(0xFF2B2B52),
       bottomNavigationBar: CurvedNavigationBar(
